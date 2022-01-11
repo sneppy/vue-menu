@@ -1,0 +1,45 @@
+{
+  "name": "@sneppy/vue-menu",
+  "version": "0.0.1",
+  "description": "A Vue 3 plugin that provides an easy-to-use context menu",
+  "input": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "style/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sneppy/vue-menu.git"
+  },
+  "keywords": [
+    "vue",
+    "menu",
+    "context",
+    "options",
+    "context-menu"
+  ],
+  "author": "sneppy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sneppy/vue-menu/issues"
+  },
+  "homepage": "https://github.com/sneppy/vue-menu#readme",
+  "dependencies": {
+    "vue": "^3.2.26"
+  },
+  "devDependencies": {
+    "less": "^4.1.2",
+    "pug": "^3.0.2",
+    "rollup": "^2.63.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0"
+  }
+}
