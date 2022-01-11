@@ -6,7 +6,7 @@
 
 A simple and easy-to-use custom context-menu for Vue 3.
 
-![demo](https://i.imgur.com/ibu96KY.gif)
+![demo](https://i.imgur.com/L9nLv4m.gif)
 
 Installation
 ------------
@@ -67,11 +67,12 @@ const tabMenuOptions = {
 Each entry has the following properties:
 
 - `action` is a function called when the associated menu option is clicked. It receives the native click event;
-- `title` is the text displayed in the menu. If not provided, the option key is used.
+- `title` is the text displayed in the menu. If not provided, the option key is used;
+- `options` is an object or array of objects of nested options.
 
 If an array of objects is passed, options are visually subdivided in groups.
 
-Finally, this is the minimum amount of styling needed to get the menu to behave correctly:
+Finally, this is the minimum amount of styling needed to get the menu to behave correctly (without nested options):
 
 ```css
 /* This should cover the browser visible screen */
@@ -105,7 +106,7 @@ import "@sneppy/vue-menu/dist/index.css"
 @import "~/@sneppy/vue-menu/dist/index.css"
 ```
 
-Or you can provide your own style using any preprocessor, e.g.:
+Or you can provide your own style:
 
 ```less
 .menu-view {
@@ -142,6 +143,20 @@ Or you can provide your own style using any preprocessor, e.g.:
 		}
 	}
 }
+```
+
+The css selectors for a fully expanded menu are:
+
+```
+div.menu-view
+	div.menu-component
+		ul.menu-group
+			li.menu-option
+				span.option-title
+				span.expand-arrow
+				div.menu-component.nested
+					...
+		hr
 ```
 
 ---

@@ -1,6 +1,6 @@
 {
   "name": "@sneppy/vue-menu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Vue 3 plugin that provides an easy-to-use context menu",
   "input": "src/index.js",
   "main": "dist/index.js",

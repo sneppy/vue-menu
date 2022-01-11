@@ -1,5 +1,7 @@
 /* Styling for default menu component. */
 .menu-component {
+	position: absolute;
+
 	.menu-group {
 		list-style-type: none;
 		margin-block-start: 0.5em;
@@ -8,10 +10,23 @@
 
 		.menu-option {
 			padding: 0.25em 2em;
+			white-space: nowrap;
 			cursor: pointer;
 
 			&:hover {
 				text-decoration: underline;
+			}
+
+			&.parent>.option-layout>.expand-arrow {
+				&::after {
+					content: '>';
+				}
+			}
+
+			.option-layout {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 			}
 		}
 	}
@@ -22,5 +37,9 @@
 		&:last-of-type {
 			display: none;
 		}
+	}
+
+	&.nested {
+		transform: translateY(-0.5em);
 	}
 }
