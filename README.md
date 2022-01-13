@@ -66,7 +66,7 @@ const tabMenuOptions = {
 
 Each entry has the following properties:
 
-- `action` is a function called when the associated menu option is clicked. It receives the native click event;
+- `action` is a function called when the associated menu option is clicked. It receives the native click event. If the action returns a true-ish value it prevents the menu from closing;
 - `title` is the text displayed in the menu. If not provided, the option key is used;
 - `options` is an object or array of objects of nested options.
 
@@ -76,7 +76,8 @@ Finally, this is the minimum amount of styling needed to get the menu to behave 
 
 ```css
 /* This should cover the browser visible screen */
-.menu-view {
+.menu-container,
+.menu-container .menu-backdrop {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -84,7 +85,20 @@ Finally, this is the minimum amount of styling needed to get the menu to behave 
 	bottom: 0;
 }
 
-.menu-view .menu-component {
+.menu-container {
+	z-index: 999;
+	pointer-events: none;
+}
+
+.menu-container>* {
+	pointer-events: all;
+}
+
+.menu-container .menu-backdrop {
+	z-index: 0
+}
+
+.menu-container .menu-component {
 	position: absolute;
 	background-color: white;
 }
@@ -106,49 +120,13 @@ import "@sneppy/vue-menu/dist/index.css"
 @import "~/@sneppy/vue-menu/dist/index.css"
 ```
 
-Or you can provide your own style:
-
-```less
-.menu-view {
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 999;
-}
-
-.menu-component {
-	.menu-group {
-		list-style-type: none;
-		margin-block-start: 0.5em;
-		margin-block-end: 0.5em;
-		padding-inline-start: 0;
-
-		.menu-option {
-			padding: 0.25em 2em;
-			cursor: pointer;
-
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-	}
-
-	hr {
-		margin: 0.5em 1em;
-
-		&:last-of-type {
-			display: none;
-		}
-	}
-}
-```
+Or you can provide your own style.
 
 The css selectors for a fully expanded menu are:
 
 ```
-div.menu-view
+div.menu-container
+	div.menu-backdrop
 	div.menu-component
 		ul.menu-group
 			li.menu-option

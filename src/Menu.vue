@@ -40,9 +40,10 @@ export default {
 		y: {
 			type: [Number, String],
 			required: false
-		}
+		},
+		arg: null
 	},
-	setup(props) {
+	setup(props, { emit }) {
 
 		// Nested options
 		let nested = reactive({})
@@ -54,6 +55,9 @@ export default {
 			for (let name in group)
 			{
 				const option = group[name]
+
+				// Default click handler, closes the menu
+				let onClick = (...args) => emit('close', ...args)
 
 				// Create new entry
 				newGroup[name] = {title: option.title, on: {}}
@@ -83,9 +87,20 @@ export default {
 
 				if (option.action)
 				{
-					// Add click handler
-					newGroup[name].on['click'] = option.action
+					// Change click and contextmenu handlers to execute action
+					onClick = (...args) => {
+
+						if (!option.action(...args, props.arg))
+						{
+							// If action returns a false-ish value, close menu
+							emit('close', ...args)
+						}
+					}
 				}
+
+				// Register click and contextmenu handlers
+				newGroup[name].on['click'] = onClick
+				newGroup[name].on['contextmenu'] = onClick
 			}
 
 			return newGroup

@@ -23,19 +23,24 @@ export default defineComponent({
 			}
 
 			// Get only properties we need
-			let { options, pos } = menu
+			let { options, pos, arg } = menu
 
-			// This pops the menu
-			const onClick = () => plugin._popMenu()
+			/* This is called when closing the menu. */
+			const onClose = () => plugin._popMenu()
 
-			// This prevents system context menu to pop up on custom menu
+			/* Called when clicking the backdrop, close the menu. */
+			const onClick = () => onClose()
+
+			/* Prevents system ctx menu from showing when right-clicking backdrop. */
 			const onContextmenu = (e) => {
 
+				onClose()
 				e.preventDefault()
 			}
 
-			return h('div', {class: 'menu-container', onClick, onContextmenu}, [
-				h(MenuComponent, {options, x: pos[0], y: pos[1]})
+			return h('div', {class: 'menu-container'}, [
+				h('div', {class: 'menu-backdrop', onClick, onContextmenu}),
+				h(MenuComponent, {options, x: pos[0], y: pos[1], arg, onClose})
 			])
 		}
 	}

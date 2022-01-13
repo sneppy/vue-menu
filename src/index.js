@@ -59,12 +59,12 @@ export default function install(app, options) {
 
 	// Register directive
 	app.directive('menu', {
-		mounted(el, { value }, vnode) {
+		mounted(el, { value, arg }, vnode) {
 
 			const eventHandler = (e) => {
 
 				// Push to state
-				_setMenu({options: value, pos: [e.clientX, e.clientY]})
+				_setMenu({options: value, pos: [e.clientX, e.clientY], arg})
 
 				// Don't show system menu
 				e.preventDefault()
